@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "209525642440",
+    "firebase_url": "https://gurestaurntreviewandfind.firebaseio.com",
+    "project_id": "gurestaurntreviewandfind",
+    "storage_bucket": "gurestaurntreviewandfind.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209525642440:android:4092c7887f5dfd740281fd",
+        "android_client_info": {
+          "package_name": "com.example.restaurantreviewandfind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209525642440-8u59b0gbkabv4oj6r8si02qb4qb2jl4v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd8wmPF1kuXEsRNwlz8keU5Hy832UwBWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209525642440-8u59b0gbkabv4oj6r8si02qb4qb2jl4v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
