@@ -3,7 +3,7 @@ package com.example.restaurantreviewandfind;
 public class Review {
 
         private String restaurant;
-        private long rating;
+        private float rating;
         private String reviewText;
 
         public Review() {
@@ -12,7 +12,7 @@ public class Review {
             reviewText = "BLANK CONTENT";
         }
 
-        public Review(String restaurant, long rating, String reviewText) {
+        public Review(String restaurant, float rating, String reviewText) {
             this.restaurant = restaurant;
             this.rating = rating;
             this.reviewText = reviewText;
@@ -26,11 +26,11 @@ public class Review {
             this.restaurant = restaurant;
         }
 
-        public long getRating() {
+        public float getRating() {
             return rating;
         }
 
-        public void setRating(int rating) {
+        public void setRating(float rating) {
             this.rating = rating;
         }
 

@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (resultCode == RESULT_OK) {
                 String restaurant = data.getStringExtra("restaurant");
-                long rating = data.getLongExtra("rating",0);
+                float rating = data.getFloatExtra("rating",0);
                 String review = data.getStringExtra("review");
                 Review newReview = new Review(restaurant, rating, review);
                 Log.d(TAG, "newReview to Database" +newReview);

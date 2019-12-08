@@ -35,7 +35,7 @@ public class ReviewActivity extends AppCompatActivity {
         final EditText review = (EditText)findViewById(R.id.reviewRestaurantText);
 
         String restaurant = restaurantTitle.getText().toString();
-        long starRating = rating.getNumStars();
+        float starRating = rating.getRating();
         String reviewText = review.getText().toString();
 
 
