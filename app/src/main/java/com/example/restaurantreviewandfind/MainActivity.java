@@ -297,11 +297,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "In getReview Request");
 
             if (resultCode == RESULT_OK) {
-                String restaurant = data.getStringExtra("restaurant");
-                float rating = data.getFloatExtra("rating",0);
-                String review = data.getStringExtra("review");
-                Review newReview = new Review(restaurant, rating, review);
-                Log.d(TAG, "newReview to Database" +newReview);
+                Review newReview = (Review) data.getSerializableExtra("review");
                 reviewDatabaseReference.push().setValue(newReview);
                 //myList.add(new Note(title, noteType, noteContent));
                 //arrayAdapter.notifyDataSetChanged();

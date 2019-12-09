@@ -1,6 +1,8 @@
 package com.example.restaurantreviewandfind;
 
-public class Review {
+import java.io.Serializable;
+
+public class Review implements Serializable {
 
         private String restaurant;
         private float rating;

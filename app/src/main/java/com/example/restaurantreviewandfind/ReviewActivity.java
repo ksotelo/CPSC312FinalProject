@@ -43,11 +43,10 @@ public class ReviewActivity extends AppCompatActivity {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
         } else {
             Intent infoIntent = new Intent();
-            infoIntent.putExtra("restaurant", restaurant);
-            infoIntent.putExtra("rating", starRating);
-            infoIntent.putExtra("review", reviewText);
-            Toast.makeText(this," "+ restaurant + starRating + reviewText, Toast.LENGTH_LONG).show();
-            //Log.d(TAG, " "+ restaurantTitle + rating + reviewText);
+            infoIntent.putExtra("review",new Review(restaurant, starRating, reviewText));
+//            infoIntent.putExtra("restaurant", restaurant);
+//            infoIntent.putExtra("rating", starRating);
+//            infoIntent.putExtra("review", reviewText);
             setResult(RESULT_OK, infoIntent);
             finish();
         }
