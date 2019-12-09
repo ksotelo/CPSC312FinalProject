@@ -1,3 +1,10 @@
-<resources>
+ <resources>
     <string name="app_name">RestaurantReviewAndFind</string>
+     <string-array name="priceArray">
+         <item>N/A</item>
+         <item>$</item>
+         <item>$$</item>
+         <item>$$$</item>
+         <item>$$$$</item>
+     </string-array>
 </resources>

@@ -49,7 +49,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/logOutButton"
+        android:id="@+id/logOutButton2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="log out button"
