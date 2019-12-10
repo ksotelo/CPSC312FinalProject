@@ -78,13 +78,13 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, types);
         priceSpinner.setAdapter(arrayAdapter);
 
-        Button logOutButton = (Button)findViewById(R.id.logOutButton);
-        logOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-            }
-        });
+//        Button logOutButton = (Button)findViewById(R.id.logOutButton);
+//        logOutButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FirebaseAuth.getInstance().signOut();
+//            }
+//        });
 
         myFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -272,6 +272,7 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
+
     private void setupUserSignedIn(FirebaseUser user) {
         // get the user's name
         userName = user.getDisplayName();
@@ -334,16 +335,14 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch(id){
-            case R.id.addMenuItem:
-                makeAReview();
-                return true; //we consumed/handled the event
-            //task: finish the two other cases, show toast messages
-            case R.id.searchMenuItems:
-                Toast.makeText(this, "TODO: search menu",Toast.LENGTH_SHORT).show();
-                return true;
             case R.id.favRec:
+                makeAReview();
                 Toast.makeText(this, "TODO: fav reccomendations",Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.logOutButton:
+                FirebaseAuth.getInstance().signOut();
+                return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
