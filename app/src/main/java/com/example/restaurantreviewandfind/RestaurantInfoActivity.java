@@ -1,4 +1,3 @@
-//xml background photo: https://pngtree.com/freebackground/restaurant-menu-background-poster_401323.html
 
 package com.example.restaurantreviewandfind;
 
@@ -7,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -32,5 +32,16 @@ public class RestaurantInfoActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void buttonToGoToViews(){
+        Button goToReviews = (Button) findViewById(R.id.goToWrittenReviews);
+        goToReviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RestaurantInfoActivity.this, ViewReviewsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

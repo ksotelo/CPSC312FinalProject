@@ -28,6 +28,15 @@ public class Restaurant {
            setBulldogBucks();
        }
 
+       //dvc
+       public Restaurant(){
+           name = "BLANK NAME";
+           address = "BLANK ADDY";
+           website = "BLANK WEBSITE";
+           priceLevel = "$";
+           acceptsBulldogBucks = true;
+       }
+
         public String getPlaceId() {
                 return placeId;
         }

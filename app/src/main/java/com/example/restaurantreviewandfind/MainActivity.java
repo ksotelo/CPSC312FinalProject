@@ -51,6 +51,7 @@ import java.util.List;
 
 import static com.example.restaurantreviewandfind.PlacesAPI.API_KEY;
 import static com.example.restaurantreviewandfind.R.id.spinner3;
+import static com.example.restaurantreviewandfind.R.id.start;
 
 public class MainActivity extends AppCompatActivity {
     static final String TAG = "MyFirebase";
@@ -116,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
                 //Log.d(TAG, "HEREE: " + );
                 PlacesAPI placesAPI = new PlacesAPI(MainActivity.this);
                 placesAPI.fetchPlaces(latitude, longitude, keywords, getPriceLevel(price), wantBulldogBucks, wantOpenNow);
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
                 }
         });
 
