@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gonzagaLightBlue"
     tools:context=".ReviewActivity">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Remember to fill out every section to made your reccomendation helpful :) "
+        android:text="Remember to fill out every section to made your recommendation helpful :) "
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,6 +61,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Add Review! "
+        android:background="@color/gonzagaLightBlue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:onClick="addReviewButton"

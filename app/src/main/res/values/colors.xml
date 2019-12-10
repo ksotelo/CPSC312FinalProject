@@ -5,4 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="gonzagaLightBlue">#6CACE4</color>
+    <color name="gonzagaRed">#CC0033</color>
+    <color name="gonzagaBlue">#06274F</color>
 </resources>

@@ -1,3 +1,5 @@
+// Picture used in main xml: https://en.wikipedia.org/wiki/Gonzaga_University
+
 package com.example.restaurantreviewandfind;
 
 import androidx.annotation.NonNull;
