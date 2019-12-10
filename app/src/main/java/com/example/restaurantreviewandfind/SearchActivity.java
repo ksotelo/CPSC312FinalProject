@@ -13,9 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.firebase.ui.auth.data.model.Resource;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +47,7 @@ public class SearchActivity extends AppCompatActivity {
                 return view;
             }
         };
-
+        listView.setAdapter(arrayAdapter);
 
     }
 
