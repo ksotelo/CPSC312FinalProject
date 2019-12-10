@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     static final int LOCATION_REQUEST_CODE = 3;
     private double latitude;
     private double longitude;
+    private boolean searchActivityActivated = false;
     static final String API_KEY = "AIzaSyCFY_urP6VDBIWwsYFtKg2B8c-L6lirwXo";
     String userName = "Anonymous";
     private FusedLocationProviderClient myFusedLocationProviderClient;
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                searchActivityActivated = true;
                 CheckBox bulldogBucksCheck = (CheckBox) findViewById(R.id.bulldogBucksCheck);
                 CheckBox openNowCheck = (CheckBox) findViewById(R.id.openNowCheck);
                 Spinner spinner = (Spinner) findViewById(spinner3);
@@ -114,10 +116,44 @@ public class MainActivity extends AppCompatActivity {
                 placesAPI.fetchPlaces(latitude, longitude, keywords, getPriceLevel(price), wantBulldogBucks, wantOpenNow);
                 }
         });
+
+        ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchActivityActivated = false;
+                CheckBox bulldogBucksCheck = (CheckBox) findViewById(R.id.bulldogBucksCheck);
+                CheckBox openNowCheck = (CheckBox) findViewById(R.id.openNowCheck);
+                Spinner spinner = (Spinner) findViewById(spinner3);
+                String price = spinner.getSelectedItem().toString();
+                boolean wantBulldogBucks = bulldogBucksCheck.isChecked();
+                boolean wantOpenNow = openNowCheck.isChecked();
+                if(wantOpenNow){
+                    Log.d(TAG, "true!!");
+                }
+                EditText keywordEditText = (EditText) findViewById(R.id.editText2);
+                String keywords = keywordEditText.getText().toString();
+                //Log.d(TAG, "HEREE: " + );
+                PlacesAPI placesAPI = new PlacesAPI(MainActivity.this);
+                placesAPI.fetchPlaces(latitude, longitude, keywords, getPriceLevel(price), wantBulldogBucks, wantOpenNow);
+                Intent mapIntent = new Intent(MainActivity.this, MapsActivity.class);
+                mapIntent.putExtra("latitude",latitude);
+                mapIntent.putExtra("longitude",longitude);
+                //mapIntent.putExtra("restaurantTitle",restaurantTitle"
+                //mapIntent.putExtra("keywords",keyword); // for the snippet?
+                startActivity(mapIntent);
+            }
+        });
+
     }
 
-    public void receivedRestrauntSearch(List<Restaurant> restaurants) {
-        Toast.makeText(MainActivity.this, "Restaurants Received", Toast.LENGTH_LONG);
+    public void receivedRestaurantSearch(List<Restaurant> restaurants) {
+        Toast.makeText(MainActivity.this, "Restaurants Received", Toast.LENGTH_LONG).show();
+        if (searchActivityActivated){
+            //go to search activity
+        } else{
+            //go to map activity
+        }
         for(int i = 0; i < restaurants.size(); i++){
             Log.d(TAG, "RESTAURANT: " + restaurants.get(i));
         }
@@ -140,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setupLastKnownLocation(){
-
         // requests permissions if we don't already have it
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -347,7 +382,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Starts an actiity to make a review
+    //Starts an activity to make a review
     public void makeAReview(){
         Intent intent = new Intent(this, ReviewActivity.class);
         startActivityForResult(intent,GET_REVIEW_REQUEST);

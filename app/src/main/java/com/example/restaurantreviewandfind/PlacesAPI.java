@@ -83,7 +83,7 @@ public class PlacesAPI {
         @Override
         protected void onPostExecute(List<Restaurant> restaurants) {
             super.onPostExecute(restaurants);
-            mainActivity.receivedRestrauntSearch(restaurants);
+            mainActivity.receivedRestaurantSearch(restaurants);
         }
 
         public String getJSONString(String urlStr) {

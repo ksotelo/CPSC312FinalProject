@@ -39,21 +39,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="140dp"
         android:gravity="center"
         android:text="Welcome to Gonzaga's personal restuarant advisor for students. To make a recommendation click the plus icon. To view past recommendations from Gonzaga students, search a name and click on how you want to search it by."
         android:textColor="@color/colorPrimaryDark"
         android:textSize="35sp"
         app:layout_constraintBottom_toTopOf="@+id/logOutButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.6"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/logOutButton2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="log out button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

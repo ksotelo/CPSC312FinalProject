@@ -1,10 +1,11 @@
- <resources>
+<resources>
     <string name="app_name">RestaurantReviewAndFind</string>
-     <string-array name="priceArray">
-         <item>N/A</item>
-         <item>$</item>
-         <item>$$</item>
-         <item>$$$</item>
-         <item>$$$$</item>
-     </string-array>
+    <string-array name="priceArray">
+        <item>N/A</item>
+        <item>$</item>
+        <item>$$</item>
+        <item>$$$</item>
+        <item>$$$$</item>
+    </string-array>
+    <string name="title_activity_maps">Map</string>
 </resources>

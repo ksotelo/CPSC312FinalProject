@@ -38,15 +38,11 @@ public class ReviewActivity extends AppCompatActivity {
         float starRating = rating.getRating();
         String reviewText = review.getText().toString();
 
-
-        if(restaurantTitle.length() == 0 && review.length() == 0 ){
+        if(restaurantTitle.length() == 0 || review.length() == 0 ){
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
         } else {
             Intent infoIntent = new Intent();
             infoIntent.putExtra("review",new Review(restaurant, starRating, reviewText));
-//            infoIntent.putExtra("restaurant", restaurant);
-//            infoIntent.putExtra("rating", starRating);
-//            infoIntent.putExtra("review", reviewText);
             setResult(RESULT_OK, infoIntent);
             finish();
         }
