@@ -12,6 +12,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -31,6 +33,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationManager locationManager;
     private double latitude;
     private double longitude;
+    private List<Restaurant> restaurantList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(curLocation,15.0f);
         setPin(latitude,longitude);
         mMap.moveCamera(cameraUpdate);
+//        for(int i = 0; i < restaurantList.size(); i++){
+//            setPin(restaurantList.get(i).getLocation().latitude, restaurantList.get(i).getLocation().longitude);
+//        }
         //Check we have the users permission to access their location
         // if we dont have it, we have to request it
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
@@ -98,6 +104,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerOptions.position(latLng);
         mMap.addMarker(markerOptions);
     }
+
+    public List<Restaurant> fillList(Intent intent){
+        Log.d("TEST", "FILLING LIST");
+        List<Restaurant> restaurants = new ArrayList<Restaurant>();
+        ArrayList<String> placeIds = intent.getStringArrayListExtra("placeIds");
+        ArrayList<String> names = intent.getStringArrayListExtra("names");
+        ArrayList<String> addresses = intent.getStringArrayListExtra("addresses");
+        //ArrayList<String[]> restaurantHours = intent.getStringArrayListExtra(
+        ArrayList<String> websites = intent.getStringArrayListExtra("websites");
+        ArrayList<String> priceLevels = intent.getStringArrayListExtra("priceLevels");
+        boolean[] bulldogBucks = intent.getBooleanArrayExtra("bulldogBucks");
+        double[] latitudes = intent.getDoubleArrayExtra("latitudes");
+        double[] longitudes = intent.getDoubleArrayExtra("longitudes");
+
+
+        Log.d("TEST", "CREATED LISTS");
+        int length = placeIds.size();
+        for(int i = 0; i < length; i++){
+            Restaurant newRestaurant = new Restaurant(placeIds.get(i));
+            newRestaurant.setName(names.get(i));
+            newRestaurant.setAddress(addresses.get(i));
+            newRestaurant.setWebsite(websites.get(i));
+            //Log.d("TEST", "PRICELEVEL:" + );
+            newRestaurant.setPriceLevel(priceLevels.get(i));
+            LatLng loc = new LatLng(latitudes[i], longitudes[i]);
+            restaurants.add(newRestaurant);
+        }
+        Log.d("TEST", "FILLED LISTS");
+        return restaurants;
+    }
+
 
     //Sets the pin with a string title and a string snippet
 //    public void setPin(double latitude, double longitude, String restaurant, String info){

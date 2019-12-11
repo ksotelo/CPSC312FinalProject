@@ -38,15 +38,13 @@ public class SearchActivity extends AppCompatActivity {
         listView = new ListView(this);
         setContentView(listView);
 
-        Log.d("TEST", "" + restaurantList);
+        Log.d("TEST", "" + restaurantList.get(0));
 
         ArrayAdapter<Restaurant> arrayAdapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_2,android.R.id.text1,restaurantList){
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView,parent);
-                Drawable d = getDrawable(R.drawable.backgroundfood);
-                view.setBackground(d);
                 Restaurant restaurant = restaurantList.get(position);
                 //set values for the view
                 TextView tv1 = (TextView) view.findViewById(android.R.id.text1);
@@ -69,10 +67,8 @@ public class SearchActivity extends AppCompatActivity {
         //ArrayList<String[]> restaurantHours = intent.getStringArrayListExtra(
         ArrayList<String> websites = intent.getStringArrayListExtra("websites");
         ArrayList<String> priceLevels = intent.getStringArrayListExtra("priceLevels");
-//        //ArrayList<Boolean> bulldogBucks = intent.getStringArrayListExtra(
-//
-//
-//
+        boolean[] bulldogBucks = intent.getBooleanArrayExtra("bulldogBucks");
+
         Log.d("TEST", "CREATED LISTS");
         int length = placeIds.size();
         for(int i = 0; i < length; i++){
@@ -85,9 +81,7 @@ public class SearchActivity extends AppCompatActivity {
             restaurants.add(newRestaurant);
         }
         Log.d("TEST", "FILLED LISTS");
-
         return restaurants;
-
     }
 
     //on the click in the list, it goes to another intent

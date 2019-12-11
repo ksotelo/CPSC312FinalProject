@@ -110,17 +110,12 @@ public class MainActivity extends AppCompatActivity {
                 String price = spinner.getSelectedItem().toString();
                 boolean wantBulldogBucks = bulldogBucksCheck.isChecked();
                 boolean wantOpenNow = openNowCheck.isChecked();
-                if(wantOpenNow){
-                    Log.d(TAG, "true!!");
-                }
                 EditText keywordEditText = (EditText) findViewById(R.id.editText2);
                 String keywords = keywordEditText.getText().toString();
                 Log.d("TEST", "STARTING SEARCH" );
 
                 PlacesAPI placesAPI = new PlacesAPI(MainActivity.this);
                 placesAPI.fetchPlaces(latitude, longitude, keywords, getPriceLevel(price), wantBulldogBucks, wantOpenNow);
-                //Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                //startActivity(intent);
                 }
         });
 
@@ -129,26 +124,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 searchActivityActivated = false;
+                Log.d("TEST", "STARTING SEARCH" );
                 CheckBox bulldogBucksCheck = (CheckBox) findViewById(R.id.bulldogBucksCheck);
                 CheckBox openNowCheck = (CheckBox) findViewById(R.id.openNowCheck);
                 Spinner spinner = (Spinner) findViewById(spinner3);
                 String price = spinner.getSelectedItem().toString();
                 boolean wantBulldogBucks = bulldogBucksCheck.isChecked();
                 boolean wantOpenNow = openNowCheck.isChecked();
-                if(wantOpenNow){
-                    Log.d(TAG, "true!!");
-                }
+
                 EditText keywordEditText = (EditText) findViewById(R.id.editText2);
                 String keywords = keywordEditText.getText().toString();
-                //Log.d(TAG, "HEREE: " + );
+                Log.d("TEST", "STARTING SEARCH" );
                 PlacesAPI placesAPI = new PlacesAPI(MainActivity.this);
                 placesAPI.fetchPlaces(latitude, longitude, keywords, getPriceLevel(price), wantBulldogBucks, wantOpenNow);
-                Intent mapIntent = new Intent(MainActivity.this, MapsActivity.class);
-                mapIntent.putExtra("latitude",latitude);
-                mapIntent.putExtra("longitude",longitude);
+
+
                 //mapIntent.putExtra("restaurantTitle",restaurantTitle"
                 //mapIntent.putExtra("keywords",keyword); // for the snippet?
-                startActivity(mapIntent);
+                //startActivity(mapIntent);
             }
         });
 
@@ -161,7 +154,10 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String[]> restaurantHours = new ArrayList<String[]>();
         ArrayList<String> websites = new ArrayList<String>();
         ArrayList<String> priceLevels = new ArrayList<String>();
-        ArrayList<Boolean> bulldogBucks = new ArrayList<Boolean>();
+        boolean[] bulldogBucks = new boolean[restaurants.size()];
+        //ArrayList<Boolean> bulldogBucks = new ArrayList<Boolean>();
+        double[] latitudes = new double[restaurants.size()];
+        double[] longitudes = new double[restaurants.size()];
 
         for(int i = 0; i < restaurants.size(); i++){
             placeIds.add(restaurants.get(i).getPlaceId());
@@ -170,7 +166,9 @@ public class MainActivity extends AppCompatActivity {
             restaurantHours.add(restaurants.get(i).getHours());
             websites.add(restaurants.get(i).getWebsite());
             priceLevels.add(restaurants.get(i).getPriceLevel());
-            bulldogBucks.add(restaurants.get(i).acceptsBulldogBucks());
+            bulldogBucks[i] = (restaurants.get(i).acceptsBulldogBucks());
+            latitudes[i] = restaurants.get(i).getLocation().latitude;
+            longitudes[i] = restaurants.get(i).getLocation().longitude;
         }
 
         if (searchActivityActivated){
@@ -181,12 +179,29 @@ public class MainActivity extends AppCompatActivity {
             //searchIntent.putStringArrayListExtra("restaurantHours", restaurantHours);
             searchIntent.putStringArrayListExtra("websites", websites);
             searchIntent.putStringArrayListExtra("priceLevels", priceLevels);
-            //searchIntent.putBooleanArrayListExtra("bulldogBucks", bulldogBucks);
+            searchIntent.putExtra("bulldogBucks", bulldogBucks);
             Log.d("TEST", "FINISHED SEARCH, STARTING ACTIVITY");
             Log.d("TEST", "" + names);
 
             startActivity(searchIntent);
         } else{
+            Intent searchIntent = new Intent(MainActivity.this, MapsActivity.class);
+            searchIntent.putStringArrayListExtra("placeIds", placeIds);
+            searchIntent.putStringArrayListExtra("names", names);
+            searchIntent.putStringArrayListExtra("addresses", addresses);
+            //searchIntent.putStringArrayListExtra("restaurantHours", restaurantHours);
+            searchIntent.putStringArrayListExtra("websites", websites);
+            searchIntent.putStringArrayListExtra("priceLevels", priceLevels);
+            searchIntent.putExtra("bulldogBucks", bulldogBucks);
+            searchIntent.putExtra("latitudes", latitudes);
+            searchIntent.putExtra("longitudes", longitudes);
+            searchIntent.putExtra("latitude",latitude);
+            searchIntent.putExtra("longitude",longitude);
+
+            Log.d("TEST", "FINISHED SEARCH, STARTING ACTIVITY");
+            Log.d("TEST", "" + names);
+
+            startActivity(searchIntent);
         }
     }
 

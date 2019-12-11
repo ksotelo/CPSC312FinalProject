@@ -19,12 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.maps.model.LatLng;
+
 
 public class PlacesAPI {
     static final String BASE_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
     static final String BASE_URL_2 = "https://maps.googleapis.com/maps/api/place/details/json?";
     static final String API_KEY = "AIzaSyCFY_urP6VDBIWwsYFtKg2B8c-L6lirwXo";
-    static final String TAG = "NearMeTag";
+    static final String TAG = "TEST";
     static boolean acceptBulldogBucks = false;
 
     MainActivity mainActivity;
@@ -64,7 +66,7 @@ public class PlacesAPI {
     public String createPlaceRequestURL(String placeId) {
         String url = BASE_URL_2;
         url += "&place_id=" + placeId;
-        url += "&fields=name,formatted_address,price_level,opening_hours,website";
+        url += "&fields=name,formatted_address,price_level,opening_hours,website,geometry";
         url += "&key=" + API_KEY;
         Log.d(TAG, "places Request: " + url);
         return url;
@@ -153,6 +155,15 @@ public class PlacesAPI {
                 JSONObject jsonObject = new JSONObject(result);
                 JSONObject resultObject = jsonObject.getJSONObject("result");
                 try { myRestaurant.setAddress(resultObject.getString("formatted_address")); } catch (JSONException e) {}
+                try {
+                    JSONObject geometryObject = resultObject.getJSONObject("geometry");
+                    JSONObject locationObject = geometryObject.getJSONObject("location");
+                    double lat= locationObject.getDouble("lat");
+                    double lng = locationObject.getDouble("lng");
+                    Log.d("TEST", "FINDING LOCATION, LAT = " + lat + "LNG = " + lng);
+                    LatLng location = new LatLng(lat, lng);
+                    myRestaurant.setLocation(location);
+                } catch (JSONException e) {}
                 try { myRestaurant.setName(resultObject.getString("name")); } catch (JSONException e){}
                 try {
                     JSONObject hoursObject = resultObject.getJSONObject("opening_hours");

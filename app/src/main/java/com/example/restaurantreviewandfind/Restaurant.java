@@ -1,5 +1,7 @@
 package com.example.restaurantreviewandfind;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.Arrays;
 
 public class Restaurant {
@@ -10,6 +12,7 @@ public class Restaurant {
         String[] hours = new String[7];
         String website;
         String priceLevel;
+        LatLng location;
         boolean acceptsBulldogBucks = false;
         String[] bulldogBucks = {"ChIJNSuFR_kYnlQROXOwBwpoXRw", "ChIJ5RiO6MIYnlQRswkXPIX1XRQ", "ChIJV5IpUvIYnlQR6e33dlIdBNE",
             "ChIJ5Vm5_uoYnlQRCZhElaJZHyM", "ChIJvZt6Hu4YnlQRdnLFhhWondA", "ChIJJaJeGPIYnlQRKHnyk1yxuUs",
@@ -81,7 +84,15 @@ public class Restaurant {
                 return priceLevel;
         }
 
-        public void setPriceLevel(String priceLevelIn) {
+    public LatLng getLocation() {
+        return location;
+    }
+
+    public void setLocation(LatLng location) {
+        this.location = location;
+    }
+
+    public void setPriceLevel(String priceLevelIn) {
            /*if(priceLevelIn.equals("1")){
                priceLevel = "$";
            } else if (priceLevelIn.equals("2")){
@@ -120,6 +131,7 @@ public class Restaurant {
                 ", website='" + website + '\'' +
                 ", priceLevel='" + priceLevel + '\'' +
                 ", acceptsBulldogBucks='" + acceptsBulldogBucks + '\'' +
+                ", location='" + location + '\'' +
                 '}';
     }
 }
