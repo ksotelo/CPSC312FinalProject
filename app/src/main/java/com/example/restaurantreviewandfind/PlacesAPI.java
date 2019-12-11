@@ -161,8 +161,8 @@ public class PlacesAPI {
                     double lat= locationObject.getDouble("lat");
                     double lng = locationObject.getDouble("lng");
                     Log.d("TEST", "FINDING LOCATION, LAT = " + lat + "LNG = " + lng);
-                    LatLng location = new LatLng(lat, lng);
-                    myRestaurant.setLocation(location);
+                    myRestaurant.setLatitude(lat);
+                    myRestaurant.setLongitude(lng);
                 } catch (JSONException e) {}
                 try { myRestaurant.setName(resultObject.getString("name")); } catch (JSONException e){}
                 try {

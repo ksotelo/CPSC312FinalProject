@@ -6,15 +6,16 @@ import java.util.Arrays;
 
 public class Restaurant {
 
-        String placeId;
-        String name;
-        String address;
-        String[] hours = new String[7];
-        String website;
-        String priceLevel;
-        LatLng location;
-        boolean acceptsBulldogBucks = false;
-        String[] bulldogBucks = {"ChIJNSuFR_kYnlQROXOwBwpoXRw", "ChIJ5RiO6MIYnlQRswkXPIX1XRQ", "ChIJV5IpUvIYnlQR6e33dlIdBNE",
+    String placeId;
+    String name;
+    String address;
+    String[] hours = new String[7];
+    String website;
+    String priceLevel;
+    double latitude;
+    double longitude;
+    boolean acceptsBulldogBucks = false;
+    String[] bulldogBucks = {"ChIJNSuFR_kYnlQROXOwBwpoXRw", "ChIJ5RiO6MIYnlQRswkXPIX1XRQ", "ChIJV5IpUvIYnlQR6e33dlIdBNE",
             "ChIJ5Vm5_uoYnlQRCZhElaJZHyM", "ChIJvZt6Hu4YnlQRdnLFhhWondA", "ChIJJaJeGPIYnlQRKHnyk1yxuUs",
             "ChIJq3O8LusYnlQR-9v8t30ovC4", "ChIJa8wN-1YZnlQRI-ZbVwG0vtc", "ChIJl73M2OkZnlQR-y5-5nJ7hpc",
             "ChIJq3O8LusYnlQRytku1VL2sZA", "ChIJ5Vm5_uoYnlQR0Oz4tk4dF9U", "ChIJp8RNCO8YnlQR4o4ihQX41wk",
@@ -26,70 +27,80 @@ public class Restaurant {
             "ChIJWUhgYJQYnlQRW-Na2EyAL6w", "ChIJxRi0jGAYnlQRka8-4k0qcHA", "ChIJPSb3V-oYnlQROBy6iO64oi8",
             "ChIJSfiei5MYnlQRhlSDlcd2IiE", "ChIJld6w-PIYnlQR6muzshwSqJ0"};
 
-       public Restaurant(String id){
-           placeId = id;
-           setBulldogBucks();
-       }
-
-       //dvc
-       public Restaurant(){
-           name = "BLANK NAME";
-           address = "BLANK ADDY";
-           website = "BLANK WEBSITE";
-           priceLevel = "$";
-           acceptsBulldogBucks = true;
-       }
-
-        public String getPlaceId() {
-                return placeId;
-        }
-
-        public void setPlaceId(String placeId) {
-                this.placeId = placeId;
-        }
-
-        public String getName() {
-                return name;
-        }
-
-        public void setName(String name) {
-                this.name = name;
-        }
-
-        public String getAddress() {
-                return address;
-        }
-
-        public void setAddress(String address) {
-                this.address = address;
-        }
-
-        public String[] getHours() {
-                return hours;
-        }
-
-        public void setHours(String[] hours) {
-                this.hours = hours;
-        }
-
-        public String getWebsite() {
-                return website;
-        }
-
-        public void setWebsite(String website) {
-                this.website = website;
-        }
-
-        public String getPriceLevel() {
-                return priceLevel;
-        }
-
-    public LatLng getLocation() {
-        return location;
+    public Restaurant(String id){
+        placeId = id;
+        setBulldogBucks();
     }
 
-    public void setLocation(LatLng location) {
-        this.location = location;
+    //dvc
+    public Restaurant(){
+        name = "BLANK NAME";
+        address = "BLANK ADDY";
+        website = "BLANK WEBSITE";
+        priceLevel = "$";
+        acceptsBulldogBucks = true;
+    }
+
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String[] getHours() {
+        return hours;
+    }
+
+    public void setHours(String[] hours) {
+        this.hours = hours;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getPriceLevel() {
+        return priceLevel;
+    }
+
+
+
+    public void setLatitude(double lat){
+        latitude = lat;
+    }
+
+    public void setLongitude(double lng){
+        longitude = lng;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 
     public void setPriceLevel(String priceLevelIn) {
@@ -104,22 +115,22 @@ public class Restaurant {
            } else {
                priceLevel = priceLevelIn;
            }*/
-            priceLevel = priceLevelIn;
+        priceLevel = priceLevelIn;
 
-        }
+    }
 
-        public void setBulldogBucks(){
-           for(int i = 0; i < bulldogBucks.length; i++){
-               if (placeId.equals(bulldogBucks[i])){
-                   acceptsBulldogBucks = true;
-                   break;
-               }
-           }
+    public void setBulldogBucks(){
+        for(int i = 0; i < bulldogBucks.length; i++){
+            if (placeId.equals(bulldogBucks[i])){
+                acceptsBulldogBucks = true;
+                break;
+            }
         }
+    }
 
-        public boolean acceptsBulldogBucks(){
-           return acceptsBulldogBucks;
-        }
+    public boolean acceptsBulldogBucks(){
+        return acceptsBulldogBucks;
+    }
 
     @Override
     public String toString() {
@@ -131,7 +142,8 @@ public class Restaurant {
                 ", website='" + website + '\'' +
                 ", priceLevel='" + priceLevel + '\'' +
                 ", acceptsBulldogBucks='" + acceptsBulldogBucks + '\'' +
-                ", location='" + location + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
                 '}';
     }
 }

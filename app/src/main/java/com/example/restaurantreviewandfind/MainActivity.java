@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
                 PlacesAPI placesAPI = new PlacesAPI(MainActivity.this);
                 placesAPI.fetchPlaces(latitude, longitude, keywords, getPriceLevel(price), wantBulldogBucks, wantOpenNow);
-                }
+            }
         });
 
         ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
@@ -167,8 +167,8 @@ public class MainActivity extends AppCompatActivity {
             websites.add(restaurants.get(i).getWebsite());
             priceLevels.add(restaurants.get(i).getPriceLevel());
             bulldogBucks[i] = (restaurants.get(i).acceptsBulldogBucks());
-            latitudes[i] = restaurants.get(i).getLocation().latitude;
-            longitudes[i] = restaurants.get(i).getLocation().longitude;
+            latitudes[i] = restaurants.get(i).getLatitude();
+            longitudes[i] = restaurants.get(i).getLongitude();
         }
 
         if (searchActivityActivated){
