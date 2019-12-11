@@ -50,6 +50,7 @@ public class SearchActivity extends AppCompatActivity {
                 TextView tv1 = (TextView) view.findViewById(android.R.id.text1);
                 tv1.setText(restaurant.getName());
                 TextView tv2 = (TextView) view.findViewById(android.R.id.text2);
+                convertPrice(restaurant.getPriceLevel());
                 tv2.setText(restaurant.getPriceLevel());
                 return view;
             }
@@ -57,6 +58,24 @@ public class SearchActivity extends AppCompatActivity {
         listView.setAdapter(arrayAdapter);
         listClick();
     }
+
+//    public String convertPrice(String price){
+//        String dollerRep = "";
+//        if(price == 1){
+//            dollerRep = "$";
+//        }
+//        if(price == 2){
+//            dollerRep = "$$";
+//        } if(price == 3){
+//            dollerRep = "$$$";
+//        }if(price == 4){
+//            dollerRep = "$$$$";
+//        }
+//        r
+//        return dollerRep;
+//    }
+
+
 
     public List<Restaurant> fillList(Intent intent){
         Log.d("TEST", "FILLING LIST");
