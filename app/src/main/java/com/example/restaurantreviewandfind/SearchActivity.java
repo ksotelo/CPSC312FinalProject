@@ -50,8 +50,13 @@ public class SearchActivity extends AppCompatActivity {
                 TextView tv1 = (TextView) view.findViewById(android.R.id.text1);
                 tv1.setText(restaurant.getName());
                 TextView tv2 = (TextView) view.findViewById(android.R.id.text2);
-                convertPrice(restaurant.getPriceLevel());
-                tv2.setText(restaurant.getPriceLevel());
+                if(restaurant.getPriceLevel()==null){
+                    tv2.setText("price level not available");
+                }else {
+                    //String newPriceRep = convertPrice(restaurant.getPriceLevel());
+                    String newPriceRep = "$: " +restaurant.getPriceLevel();
+                    tv2.setText(newPriceRep);
+                }
                 return view;
             }
         };
@@ -60,19 +65,18 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 //    public String convertPrice(String price){
-//        String dollerRep = "";
-//        if(price == 1){
-//            dollerRep = "$";
+//        String newPriceRep = "";
+//        if(price.equals(1)){
+//            newPriceRep = "$";
+//        }if(price.equals(2)){
+//            newPriceRep = "$$";
 //        }
-//        if(price == 2){
-//            dollerRep = "$$";
-//        } if(price == 3){
-//            dollerRep = "$$$";
-//        }if(price == 4){
-//            dollerRep = "$$$$";
+//        if(price.equals(3)){
+//            newPriceRep = "$$$";
+//        }if(price.equals(4)){
+//            newPriceRep = "$$$$";
 //        }
-//        r
-//        return dollerRep;
+//        return newPriceRep;
 //    }
 
 
@@ -111,10 +115,16 @@ public class SearchActivity extends AppCompatActivity {
                 Restaurant restaurantSelected = (Restaurant) adapterView.getItemAtPosition(position);
                 Intent intent = new Intent(SearchActivity.this, RestaurantInfoActivity.class);
                 //here we gotta put the serializable i think
-//                intent.putExtra("title",selectedItem.getTitle()); //gets the title
-//                intent.putExtra("content",selectedItem.getNoteBody());
-//                intent.putExtra("noteType",selectedItem.getNoteType());
-
+                String name = restaurantSelected.getName();
+                String addy = restaurantSelected.getAddress();
+                String website = restaurantSelected.getWebsite();
+                String price = restaurantSelected.getPriceLevel();
+                boolean bulldogBucks =restaurantSelected.acceptsBulldogBucks();
+                intent.putExtra("restaurant",name);
+                intent.putExtra("addy",addy);
+                intent.putExtra("website",website);
+                intent.putExtra("price",price);
+                intent.putExtra("bulldogBucks",bulldogBucks);
                 startActivity(intent);
             }
         });

@@ -76,17 +76,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="112dp"
         android:layout_marginEnd="20dp"
-        android:text="Welcome to Gonzaga's personal restuarant advisor for students. To make a recommendation click the plus icon. To view past recommendations from Gonzaga students, search a name and click on how you want to search it by."
+        android:text="Welcome to Gonzaga's personal restaurant adviser for students. To look at nearby restaurants you can click the map icon, or list icon to display them."
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="25dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner3"
+        app:layout_constraintVertical_bias="0.45" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
