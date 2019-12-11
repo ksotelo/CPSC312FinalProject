@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -138,70 +139,75 @@ public class MainActivity extends AppCompatActivity {
                 PlacesAPI placesAPI = new PlacesAPI(MainActivity.this);
                 placesAPI.fetchPlaces(latitude, longitude, keywords, getPriceLevel(price), wantBulldogBucks, wantOpenNow);
 
-
-                //mapIntent.putExtra("restaurantTitle",restaurantTitle"
-                //mapIntent.putExtra("keywords",keyword); // for the snippet?
-                //startActivity(mapIntent);
             }
         });
 
     }
 
     public void receivedRestaurantSearch(List<Restaurant> restaurants) {
-        ArrayList<String> placeIds = new ArrayList<String>();
-        ArrayList<String> names = new ArrayList<String>();
-        ArrayList<String> addresses = new ArrayList<String>();
-        ArrayList<String[]> restaurantHours = new ArrayList<String[]>();
-        ArrayList<String> websites = new ArrayList<String>();
-        ArrayList<String> priceLevels = new ArrayList<String>();
-        boolean[] bulldogBucks = new boolean[restaurants.size()];
-        //ArrayList<Boolean> bulldogBucks = new ArrayList<Boolean>();
-        double[] latitudes = new double[restaurants.size()];
-        double[] longitudes = new double[restaurants.size()];
+        if(restaurants.size() == 0) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+            alertDialog.setTitle("No Places Found")
+                    .setMessage("No places with those requirements found in your area. Try entering different parameters.")
+                    .setPositiveButton("Ok", null)
+                    .setNegativeButton("Back", null);
+            alertDialog.show();
+        } else {
+            ArrayList<String> placeIds = new ArrayList<String>();
+            ArrayList<String> names = new ArrayList<String>();
+            ArrayList<String> addresses = new ArrayList<String>();
+            ArrayList<String[]> restaurantHours = new ArrayList<String[]>();
+            ArrayList<String> websites = new ArrayList<String>();
+            ArrayList<String> priceLevels = new ArrayList<String>();
+            boolean[] bulldogBucks = new boolean[restaurants.size()];
+            //ArrayList<Boolean> bulldogBucks = new ArrayList<Boolean>();
+            double[] latitudes = new double[restaurants.size()];
+            double[] longitudes = new double[restaurants.size()];
 
-        for(int i = 0; i < restaurants.size(); i++){
-            placeIds.add(restaurants.get(i).getPlaceId());
-            names.add(restaurants.get(i).getName());
-            addresses.add(restaurants.get(i).getAddress());
-            restaurantHours.add(restaurants.get(i).getHours());
-            websites.add(restaurants.get(i).getWebsite());
-            priceLevels.add(restaurants.get(i).getPriceLevel());
-            bulldogBucks[i] = (restaurants.get(i).acceptsBulldogBucks());
-            latitudes[i] = restaurants.get(i).getLatitude();
-            longitudes[i] = restaurants.get(i).getLongitude();
-        }
+            for (int i = 0; i < restaurants.size(); i++) {
+                placeIds.add(restaurants.get(i).getPlaceId());
+                names.add(restaurants.get(i).getName());
+                addresses.add(restaurants.get(i).getAddress());
+                restaurantHours.add(restaurants.get(i).getHours());
+                websites.add(restaurants.get(i).getWebsite());
+                priceLevels.add(restaurants.get(i).getPriceLevel());
+                bulldogBucks[i] = (restaurants.get(i).acceptsBulldogBucks());
+                latitudes[i] = restaurants.get(i).getLatitude();
+                longitudes[i] = restaurants.get(i).getLongitude();
+            }
 
-        if (searchActivityActivated){
-            Intent searchIntent = new Intent(MainActivity.this, SearchActivity.class);
-            searchIntent.putStringArrayListExtra("placeIds", placeIds);
-            searchIntent.putStringArrayListExtra("names", names);
-            searchIntent.putStringArrayListExtra("addresses", addresses);
-            //searchIntent.putStringArrayListExtra("restaurantHours", restaurantHours);
-            searchIntent.putStringArrayListExtra("websites", websites);
-            searchIntent.putStringArrayListExtra("priceLevels", priceLevels);
-            searchIntent.putExtra("bulldogBucks", bulldogBucks);
-            Log.d("TEST", "FINISHED SEARCH, STARTING ACTIVITY");
-            Log.d("TEST", "" + names);
+            if (searchActivityActivated) {
+                Intent searchIntent = new Intent(MainActivity.this, SearchActivity.class);
+                searchIntent.putStringArrayListExtra("placeIds", placeIds);
+                searchIntent.putStringArrayListExtra("names", names);
+                searchIntent.putStringArrayListExtra("addresses", addresses);
+                //searchIntent.putStringArrayListExtra("restaurantHours", restaurantHours);
+                searchIntent.putStringArrayListExtra("websites", websites);
+                searchIntent.putStringArrayListExtra("priceLevels", priceLevels);
+                searchIntent.putExtra("bulldogBucks", bulldogBucks);
+                Log.d("TEST", "FINISHED SEARCH, STARTING ACTIVITY");
+                Log.d("TEST", "" + names);
 
-            startActivity(searchIntent);
-        } else{
-            Intent searchIntent = new Intent(MainActivity.this, MapsActivity.class);
-            searchIntent.putStringArrayListExtra("placeIds", placeIds);
-            searchIntent.putStringArrayListExtra("names", names);
-            searchIntent.putStringArrayListExtra("addresses", addresses);
-            //searchIntent.putStringArrayListExtra("restaurantHours", restaurantHours);
-            searchIntent.putStringArrayListExtra("websites", websites);
-            searchIntent.putStringArrayListExtra("priceLevels", priceLevels);
-            searchIntent.putExtra("bulldogBucks", bulldogBucks);
-            searchIntent.putExtra("latitudes", latitudes);
-            searchIntent.putExtra("longitudes", longitudes);
-            searchIntent.putExtra("latitude",latitude);
-            searchIntent.putExtra("longitude",longitude);
+                startActivity(searchIntent);
+            } else {
+                Intent searchIntent = new Intent(MainActivity.this, MapsActivity.class);
+                searchIntent.putStringArrayListExtra("placeIds", placeIds);
+                searchIntent.putStringArrayListExtra("names", names);
+                searchIntent.putStringArrayListExtra("addresses", addresses);
+                //searchIntent.putStringArrayListExtra("restaurantHours", restaurantHours);
+                searchIntent.putStringArrayListExtra("websites", websites);
+                searchIntent.putStringArrayListExtra("priceLevels", priceLevels);
+                searchIntent.putExtra("bulldogBucks", bulldogBucks);
+                searchIntent.putExtra("latitudes", latitudes);
+                searchIntent.putExtra("longitudes", longitudes);
+                searchIntent.putExtra("latitude", latitude);
+                searchIntent.putExtra("longitude", longitude);
 
-            Log.d("TEST", "FINISHED SEARCH, STARTING ACTIVITY");
-            Log.d("TEST", "" + names);
+                Log.d("TEST", "FINISHED SEARCH, STARTING ACTIVITY");
+                Log.d("TEST", "" + names);
 
-            startActivity(searchIntent);
+                startActivity(searchIntent);
+            }
         }
     }
 
@@ -373,19 +379,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }
-
-        Log.d(TAG, "Request Code: "+requestCode);
-        if (requestCode == GET_REVIEW_REQUEST) {
-            Log.d(TAG, "In getReview Request");
-
-            if (resultCode == RESULT_OK) {
-                Review newReview = (Review) data.getSerializableExtra("review");
-                reviewDatabaseReference.push().setValue(newReview);
-                //myList.add(new Note(title, noteType, noteContent));
-                //arrayAdapter.notifyDataSetChanged();
-
-            }
-        }
     }
 
     @Override
@@ -420,12 +413,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    //Starts an activity to make a review
-    public void makeAReview(){
-        Intent intent = new Intent(this, ReviewActivity.class);
-        startActivityForResult(intent,GET_REVIEW_REQUEST);
     }
 
 

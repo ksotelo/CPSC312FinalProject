@@ -1,3 +1,4 @@
+//Map icon: https://en.wikipedia.org/wiki/Gonzaga_Bulldogs
 package com.example.restaurantreviewandfind;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,9 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
@@ -64,7 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         LatLng curLocation = new LatLng(latitude,longitude);
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(curLocation,15.0f);
@@ -109,12 +113,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (restaurant != null) {
             markerOptions.title(restaurant.getName());
             if (restaurant.acceptsBulldogBucks()) {
-                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.bulldog));
+            } else {
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.nobucks));
             }
+            if(restaurant.getPriceLevel()==null){
+                markerOptions.snippet("");
+            }else {
+                String snippetString = convertPrice(restaurant.getPriceLevel());
+                markerOptions.snippet(snippetString);
+            }
+
         }
         markerOptions.position(latLng);
         mMap.addMarker(markerOptions);
     }
+
 
     public List<Restaurant> fillList(Intent intent){
         Log.d("TEST", "FILLING LIST");
@@ -147,4 +161,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d("TEST", "" + restaurants);
         return restaurants;
     }
+
+    public String convertPrice(String price){
+        String newPriceRep = "";
+        if(price.equals("1")){
+            newPriceRep = "$";
+        }if(price.equals("2")){
+            newPriceRep = "$$";
+        }
+        if(price.equals("3")){
+            newPriceRep = "$$$";
+        }if(price.equals("4")){
+            newPriceRep = "$$$$";
+        }
+        return newPriceRep;
+    }
+
 }

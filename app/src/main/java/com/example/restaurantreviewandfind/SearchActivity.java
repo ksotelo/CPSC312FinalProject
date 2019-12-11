@@ -53,8 +53,7 @@ public class SearchActivity extends AppCompatActivity {
                 if(restaurant.getPriceLevel()==null){
                     tv2.setText("price level not available");
                 }else {
-                    //String newPriceRep = convertPrice(restaurant.getPriceLevel());
-                    String newPriceRep = "$: " +restaurant.getPriceLevel();
+                    String newPriceRep = convertPrice(restaurant.getPriceLevel());
                     tv2.setText(newPriceRep);
                 }
                 return view;
@@ -64,20 +63,20 @@ public class SearchActivity extends AppCompatActivity {
         listClick();
     }
 
-//    public String convertPrice(String price){
-//        String newPriceRep = "";
-//        if(price.equals(1)){
-//            newPriceRep = "$";
-//        }if(price.equals(2)){
-//            newPriceRep = "$$";
-//        }
-//        if(price.equals(3)){
-//            newPriceRep = "$$$";
-//        }if(price.equals(4)){
-//            newPriceRep = "$$$$";
-//        }
-//        return newPriceRep;
-//    }
+    public String convertPrice(String price){
+        String newPriceRep = "";
+        if(price.equals("1")){
+            newPriceRep = "$";
+        }if(price.equals("2")){
+            newPriceRep = "$$";
+        }
+        if(price.equals("3")){
+            newPriceRep = "$$$";
+        }if(price.equals("4")){
+            newPriceRep = "$$$$";
+        }
+        return newPriceRep;
+    }
 
 
 

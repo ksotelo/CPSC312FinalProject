@@ -31,7 +31,7 @@ public class RestaurantInfoActivity extends AppCompatActivity {
 
             String newAddyRep = "Address: "+addy;
             String newWebsiteRep = "Website: " + website;
-            String priceRep = "$: " +priceLevel;
+            //String priceRep = "$: " +priceLevel;
             String buckString = convertBulldogString(bulldogBucks);
 
             TextView restaurantText = (TextView) findViewById(R.id.restaurantTitle);
@@ -46,7 +46,8 @@ public class RestaurantInfoActivity extends AppCompatActivity {
             if(priceLevel==null){
                 price.setText("price level not available");
             }else {
-                String newPriceRep = "$: " +priceLevel;
+                String newPriceRep = convertPrice(priceLevel);
+                //String newPriceRep = "$: " +priceLevel;
                 price.setText(newPriceRep);
             }
             bulldogBucksAccepted.setText(buckString);
@@ -65,20 +66,20 @@ public class RestaurantInfoActivity extends AppCompatActivity {
         return buckString;
     }
 
-//    public String convertPrice(String price){
-//        String newPriceRep = "";
-//        if(price.equals(1)){
-//            newPriceRep = "$";
-//        }if(price.equals(2)){
-//            newPriceRep = "$$";
-//        }
-//        if(price.equals(3)){
-//            newPriceRep = "$$$";
-//        }if(price.equals(4)){
-//            newPriceRep = "$$$$";
-//        }
-//        return newPriceRep;
-//    }
+    public String convertPrice(String price){
+        String newPriceRep = "";
+        if(price.equals("1")){
+            newPriceRep = "$";
+        }if(price.equals("2")){
+            newPriceRep = "$$";
+        }
+        if(price.equals("3")){
+            newPriceRep = "$$$";
+        }if(price.equals("4")){
+            newPriceRep = "$$$$";
+        }
+        return newPriceRep;
+    }
 
     //Goes to make a new activity
     public void fabListener(){
