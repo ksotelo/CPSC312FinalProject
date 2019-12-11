@@ -46,6 +46,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -114,11 +115,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 EditText keywordEditText = (EditText) findViewById(R.id.editText2);
                 String keywords = keywordEditText.getText().toString();
-                //Log.d(TAG, "HEREE: " + );
+                Log.d("TEST", "STARTING SEARCH" );
+
                 PlacesAPI placesAPI = new PlacesAPI(MainActivity.this);
                 placesAPI.fetchPlaces(latitude, longitude, keywords, getPriceLevel(price), wantBulldogBucks, wantOpenNow);
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                //startActivity(intent);
                 }
         });
 
@@ -153,14 +155,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void receivedRestaurantSearch(List<Restaurant> restaurants) {
-        Toast.makeText(MainActivity.this, "Restaurants Received", Toast.LENGTH_LONG).show();
-        if (searchActivityActivated){
-            //go to search activity
-        } else{
-            //go to map activity
-        }
+        ArrayList<String> placeIds = new ArrayList<String>();
+        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> addresses = new ArrayList<String>();
+        ArrayList<String[]> restaurantHours = new ArrayList<String[]>();
+        ArrayList<String> websites = new ArrayList<String>();
+        ArrayList<String> priceLevels = new ArrayList<String>();
+        ArrayList<Boolean> bulldogBucks = new ArrayList<Boolean>();
+
         for(int i = 0; i < restaurants.size(); i++){
-            Log.d(TAG, "RESTAURANT: " + restaurants.get(i));
+            placeIds.add(restaurants.get(i).getPlaceId());
+            names.add(restaurants.get(i).getName());
+            addresses.add(restaurants.get(i).getAddress());
+            restaurantHours.add(restaurants.get(i).getHours());
+            websites.add(restaurants.get(i).getWebsite());
+            priceLevels.add(restaurants.get(i).getPriceLevel());
+            bulldogBucks.add(restaurants.get(i).acceptsBulldogBucks());
+        }
+
+        if (searchActivityActivated){
+            Intent searchIntent = new Intent(MainActivity.this, SearchActivity.class);
+            searchIntent.putStringArrayListExtra("placeIds", placeIds);
+            searchIntent.putStringArrayListExtra("names", names);
+            searchIntent.putStringArrayListExtra("addresses", addresses);
+            //searchIntent.putStringArrayListExtra("restaurantHours", restaurantHours);
+            searchIntent.putStringArrayListExtra("websites", websites);
+            searchIntent.putStringArrayListExtra("priceLevels", priceLevels);
+            //searchIntent.putBooleanArrayListExtra("bulldogBucks", bulldogBucks);
+            Log.d("TEST", "FINISHED SEARCH, STARTING ACTIVITY");
+            Log.d("TEST", "" + names);
+
+            startActivity(searchIntent);
+        } else{
         }
     }
 

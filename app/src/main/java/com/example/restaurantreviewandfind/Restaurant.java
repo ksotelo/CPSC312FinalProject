@@ -81,8 +81,20 @@ public class Restaurant {
                 return priceLevel;
         }
 
-        public void setPriceLevel(String priceLevel) {
-                this.priceLevel = priceLevel;
+        public void setPriceLevel(String priceLevelIn) {
+           /*if(priceLevelIn.equals("1")){
+               priceLevel = "$";
+           } else if (priceLevelIn.equals("2")){
+               priceLevel = "$$";
+           } else if (priceLevelIn.equals("3")){
+               priceLevel = "$$$";
+           } else if (priceLevelIn.equals("4")) {
+               priceLevel = "$$$$";
+           } else {
+               priceLevel = priceLevelIn;
+           }*/
+            priceLevel = priceLevelIn;
+
         }
 
         public void setBulldogBucks(){

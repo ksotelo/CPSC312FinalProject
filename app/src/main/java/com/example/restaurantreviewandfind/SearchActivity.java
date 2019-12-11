@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -28,11 +29,16 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_search);
-        restaurantList = new ArrayList<>();
-        restaurantList.add(new Restaurant());
+        Intent intent = getIntent();
+        restaurantList = fillList(intent);
+        //Log.d("MyFirebase", "Intent Received!");
+        //restaurantList = new ArrayList<>();
+        //restaurantList.add(new Restaurant());
 
         listView = new ListView(this);
         setContentView(listView);
+
+        Log.d("TEST", "" + restaurantList);
 
         ArrayAdapter<Restaurant> arrayAdapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_2,android.R.id.text1,restaurantList){
             @NonNull
@@ -52,7 +58,35 @@ public class SearchActivity extends AppCompatActivity {
         };
         listView.setAdapter(arrayAdapter);
         listClick();
+    }
 
+    public List<Restaurant> fillList(Intent intent){
+        Log.d("TEST", "FILLING LIST");
+        List<Restaurant> restaurants = new ArrayList<Restaurant>();
+        ArrayList<String> placeIds = intent.getStringArrayListExtra("placeIds");
+        ArrayList<String> names = intent.getStringArrayListExtra("names");
+        ArrayList<String> addresses = intent.getStringArrayListExtra("addresses");
+        //ArrayList<String[]> restaurantHours = intent.getStringArrayListExtra(
+        ArrayList<String> websites = intent.getStringArrayListExtra("websites");
+        ArrayList<String> priceLevels = intent.getStringArrayListExtra("priceLevels");
+//        //ArrayList<Boolean> bulldogBucks = intent.getStringArrayListExtra(
+//
+//
+//
+        Log.d("TEST", "CREATED LISTS");
+        int length = placeIds.size();
+        for(int i = 0; i < length; i++){
+            Restaurant newRestaurant = new Restaurant(placeIds.get(i));
+            newRestaurant.setName(names.get(i));
+            newRestaurant.setAddress(addresses.get(i));
+            newRestaurant.setWebsite(websites.get(i));
+            //Log.d("TEST", "PRICELEVEL:" + );
+            newRestaurant.setPriceLevel(priceLevels.get(i));
+            restaurants.add(newRestaurant);
+        }
+        Log.d("TEST", "FILLED LISTS");
+
+        return restaurants;
 
     }
 

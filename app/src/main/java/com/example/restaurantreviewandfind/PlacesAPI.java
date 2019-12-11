@@ -2,6 +2,8 @@ package com.example.restaurantreviewandfind;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,6 +17,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import android.widget.ProgressBar;
+
 
 public class PlacesAPI {
     static final String BASE_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
