@@ -5,9 +5,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -26,16 +33,17 @@ public class ViewReviewsActivity extends AppCompatActivity {
     private String restaurant;
     private String rating;
     private String reviewContent;
+    private ListView listView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_reviews);
+        //setContentView(R.layout.activity_view_reviews);
+        listView = new ListView(this);
+        setContentView(listView);
         reviewList = new ArrayList<>();
         connectToFirebase();
-
-
 
     }
 
@@ -50,25 +58,41 @@ public class ViewReviewsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot data: dataSnapshot.getChildren()) {
                     if(data != null){
-                        Toast.makeText(ViewReviewsActivity.this, data.toString(),Toast.LENGTH_LONG).show();
+                        //Toast.makeText(ViewReviewsActivity.this, data.toString(),Toast.LENGTH_LONG).show();
                     }
                     rating = data.child("rating").getValue().toString();
                     restaurant = data.child("restaurant").getValue().toString();
                     reviewContent = data.child("reviewText").getValue().toString();
-                    Toast.makeText(ViewReviewsActivity.this, "review" + restaurant + rating + reviewContent, Toast.LENGTH_LONG).show();
+                    float floatRating = Float.parseFloat(rating);
+                    Review newReview = new Review(restaurant, floatRating, reviewContent);
+                    reviewList.add(newReview);
+                    setArrayAdapter();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-
     }
 
-    public void setArrayAdapter(String restaurant, float rating, String reviewContent){
+    public void setArrayAdapter(){
+        ArrayAdapter<Review> arrayAdapter = new ArrayAdapter<Review>(this, android.R.layout.simple_list_item_2,android.R.id.text1,reviewList){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView,parent);
+                Review review = reviewList.get(position);
 
+                TextView tv1 = (TextView) view.findViewById(android.R.id.text1);
+                tv1.setText(review.getRestaurant());
+                TextView tv2 = (TextView) view.findViewById(android.R.id.text2);
+                String reviewAndRating = "Review: "+review.getReviewText() +" Rating: " +review.getRating();
+                tv2.setText(reviewAndRating);
+                return view;
+            }
+        };
+        listView.setAdapter(arrayAdapter);
     }
 
 }
