@@ -5,10 +5,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity {
 
     private List<Restaurant> restaurantList;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,7 @@ public class SearchActivity extends AppCompatActivity {
         restaurantList = new ArrayList<>();
         restaurantList.add(new Restaurant());
 
-        ListView listView = new ListView(this);
+        listView = new ListView(this);
         setContentView(listView);
 
         ArrayAdapter<Restaurant> arrayAdapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_2,android.R.id.text1,restaurantList){
@@ -48,7 +51,26 @@ public class SearchActivity extends AppCompatActivity {
             }
         };
         listView.setAdapter(arrayAdapter);
+        listClick();
 
+
+    }
+
+    //on the click in the list, it goes to another intent
+    public void listClick(){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Restaurant restaurantSelected = (Restaurant) adapterView.getItemAtPosition(position);
+                Intent intent = new Intent(SearchActivity.this, RestaurantInfoActivity.class);
+                //here we gotta put the serializable i think
+//                intent.putExtra("title",selectedItem.getTitle()); //gets the title
+//                intent.putExtra("content",selectedItem.getNoteBody());
+//                intent.putExtra("noteType",selectedItem.getNoteType());
+
+                startActivity(intent);
+            }
+        });
     }
 
 }

@@ -1,10 +1,14 @@
+//xml background used: https://www.123rf.com/photo_29008218_light-blue-vertical-abstract-background-texture.html
 package com.example.restaurantreviewandfind;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -17,13 +21,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewReviewsActivity extends AppCompatActivity {
+    private String TAG = "VIEW_REVIEW_ACTIVITY";
     private List<Review> reviewList;
+    private String restaurant;
+    private String rating;
+    private String reviewContent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_reviews);
         reviewList = new ArrayList<>();
+        connectToFirebase();
 
 
 
@@ -32,13 +42,16 @@ public class ViewReviewsActivity extends AppCompatActivity {
     public void connectToFirebase(){
         // Get a reference to our posts
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("server/saving-data/fireblog/posts");
+        final DatabaseReference ref = database.getReference().child("review").push();
 
         // Attach a listener to read the data at our posts reference
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                rating = dataSnapshot.child("rating").getValue().toString();
+                restaurant = dataSnapshot.child("restaurant").getValue().toString();
+                reviewContent = dataSnapshot.child("reviewText").getValue().toString();
+                Toast.makeText(ViewReviewsActivity.this, "review" + restaurant + rating + reviewContent, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -47,36 +60,10 @@ public class ViewReviewsActivity extends AppCompatActivity {
             }
         });
 
-        ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Review newReview = dataSnapshot.getValue(Review.class);
+    }
 
-//                System.out.println("Author: " + newPost.author);
-//                System.out.println("Title: " + newPost.title);
-//                System.out.println("Previous Post ID: " + prevChildKey);
-            }
+    public void setArrayAdapter(String restaurant, float rating, String reviewContent){
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
 }

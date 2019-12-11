@@ -17,6 +17,8 @@ public class RestaurantInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_info);
+        fabListener();
+        buttonToGoToViews();
     }
 
     //Goes to make a new activity
