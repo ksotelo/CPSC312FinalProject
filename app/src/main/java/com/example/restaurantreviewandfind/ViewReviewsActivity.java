@@ -42,16 +42,21 @@ public class ViewReviewsActivity extends AppCompatActivity {
     public void connectToFirebase(){
         // Get a reference to our posts
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference ref = database.getReference().child("review").push();
+        final DatabaseReference ref = database.getReference("review");
 
         // Attach a listener to read the data at our posts reference
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                rating = dataSnapshot.child("rating").getValue().toString();
-                restaurant = dataSnapshot.child("restaurant").getValue().toString();
-                reviewContent = dataSnapshot.child("reviewText").getValue().toString();
-                Toast.makeText(ViewReviewsActivity.this, "review" + restaurant + rating + reviewContent, Toast.LENGTH_LONG).show();
+                for(DataSnapshot data: dataSnapshot.getChildren()) {
+                    if(data != null){
+                        Toast.makeText(ViewReviewsActivity.this, data.toString(),Toast.LENGTH_LONG).show();
+                    }
+                    rating = data.child("rating").getValue().toString();
+                    restaurant = data.child("restaurant").getValue().toString();
+                    reviewContent = data.child("reviewText").getValue().toString();
+                    Toast.makeText(ViewReviewsActivity.this, "review" + restaurant + rating + reviewContent, Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override

@@ -373,16 +373,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
         switch(id){
-            case R.id.favRec:
-                makeAReview();
-                Toast.makeText(this, "TODO: fav reccomendations",Toast.LENGTH_SHORT).show();
-                return true;
             case R.id.logOutButton:
                 FirebaseAuth.getInstance().signOut();
                 return true;
-
         }
         return super.onOptionsItemSelected(item);
     }
