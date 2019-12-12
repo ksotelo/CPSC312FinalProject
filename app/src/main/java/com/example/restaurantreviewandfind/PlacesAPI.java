@@ -76,6 +76,8 @@ public class PlacesAPI {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            ProgressBar progressBar = mainActivity.findViewById(R.id.progressBar);
+            progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -89,6 +91,8 @@ public class PlacesAPI {
         @Override
         protected void onPostExecute(List<Restaurant> restaurants) {
             super.onPostExecute(restaurants);
+            ProgressBar progressBar = mainActivity.findViewById(R.id.progressBar);
+            progressBar.setVisibility(View.GONE);
             mainActivity.receivedRestaurantSearch(restaurants);
         }
 

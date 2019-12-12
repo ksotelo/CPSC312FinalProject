@@ -6,48 +6,103 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
+        android:id="@+id/editText2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="enter restaurant you may want to find"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="#000000"
+        android:ems="10"
+        android:hint="Enter Keywords"
         android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/mapButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/mapButton"
+        android:layout_width="56dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="#041E42"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/searchButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_dialog_map" />
+
+    <ImageButton
+        android:id="@+id/searchButton"
+        android:layout_width="55dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:backgroundTint="#041E42"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/quantum_ic_search_grey600_24" />
+
+    <CheckBox
+        android:id="@+id/bulldogBucksCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="8dp"
+        android:text="Accepts Bulldog Bucks"
+        app:layout_constraintEnd_toStartOf="@+id/spinner3"
+        app:layout_constraintStart_toEndOf="@+id/openNowCheck"
+        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+
+    <CheckBox
+        android:id="@+id/openNowCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Open Now"
+        app:layout_constraintEnd_toStartOf="@+id/bulldogBucksCheck"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+
+
+    <Spinner
+        android:id="@+id/spinner3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bulldogBucksCheck"
+        app:layout_constraintTop_toBottomOf="@+id/searchButton" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="207dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="28dp"
-        android:text="Search by Map"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="211dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="28dp"
-        android:text="Search By Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="140dp"
-        android:gravity="center"
-        android:text="Welcome to Gonzaga's personal restuarant advisor for students. To make a recommendation click the plus icon. To view past recommendations from Gonzaga students, search a name and click on how you want to search it by."
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="35sp"
-        app:layout_constraintBottom_toTopOf="@+id/logOutButton"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/gonzaga"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
