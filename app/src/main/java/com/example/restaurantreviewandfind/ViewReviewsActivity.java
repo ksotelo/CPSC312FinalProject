@@ -44,6 +44,7 @@ public class ViewReviewsActivity extends AppCompatActivity {
         setContentView(listView);
         reviewList = new ArrayList<>();
         connectToFirebase();
+
     }
 
     public void connectToFirebase(){

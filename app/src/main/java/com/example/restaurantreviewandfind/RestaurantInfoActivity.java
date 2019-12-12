@@ -1,6 +1,17 @@
+/**
+ *
+ * CPSC 312-02, Fall 2019
+ * Final Project
+ * Nothing to cite
+ *
+ * @author Kat Sotelo and Anna Smith
+ * @version v1.0 12/11/19
+ */
 
 package com.example.restaurantreviewandfind;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,10 +22,23 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
 public class RestaurantInfoActivity extends AppCompatActivity {
+
+    static final int GET_REVIEW_REQUEST = 2;
+
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference reviewDatabaseReference;
+    ChildEventListener myReviewChildEventListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +78,7 @@ public class RestaurantInfoActivity extends AppCompatActivity {
         }
         fabListener();
         buttonToGoToViews();
+        setupFirebase();
     }
 
     public String convertBulldogString(boolean bucksAcceptance){
@@ -89,8 +114,10 @@ public class RestaurantInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Snackbar.make(v, "Going to Make a Review Screen", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                Intent intent = new Intent(RestaurantInfoActivity.this, ReviewActivity.class);
-                startActivity(intent);
+                //Starts an activity to make a review
+                    Intent intent = new Intent(RestaurantInfoActivity.this, ReviewActivity.class);
+                    startActivityForResult(intent,GET_REVIEW_REQUEST);
+
             }
         });
 
@@ -105,5 +132,48 @@ public class RestaurantInfoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void setupFirebase(){
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+
+        reviewDatabaseReference = mFirebaseDatabase.getReference().child("review");
+        myReviewChildEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Review review = dataSnapshot.getValue(Review.class);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GET_REVIEW_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Review newReview = (Review) data.getSerializableExtra("review");
+                reviewDatabaseReference.push().setValue(newReview);
+            }
+        }
     }
 }

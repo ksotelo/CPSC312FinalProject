@@ -1,4 +1,14 @@
-// Picture used in main xml: https://en.wikipedia.org/wiki/Gonzaga_University
+/**
+ * This program holds the main home app functionality.
+ * CPSC 312-02, Fall 2019
+ * Final Project
+ * Picture used in main xml: https://en.wikipedia.org/wiki/Gonzaga_University
+ *
+ * @author Kat Sotelo and Anna Smith
+ * @version v1.0 12/11/19
+ */
+
+
 
 package com.example.restaurantreviewandfind;
 
@@ -58,7 +68,6 @@ import static com.example.restaurantreviewandfind.R.id.start;
 public class MainActivity extends AppCompatActivity {
     static final String TAG = "MyFirebase";
     static final int SIGN_IN_REQUEST = 1;
-    static final int GET_REVIEW_REQUEST = 2;
     static final int LOCATION_REQUEST_CODE = 3;
     private double latitude;
     private double longitude;
@@ -84,13 +93,6 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, types);
         priceSpinner.setAdapter(arrayAdapter);
 
-//        Button logOutButton = (Button)findViewById(R.id.logOutButton);
-//        logOutButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FirebaseAuth.getInstance().signOut();
-//            }
-//        });
 
         myFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -310,14 +312,8 @@ public class MainActivity extends AppCompatActivity {
         myReviewChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                // called for each message already in our db
-                // called for each new message add to our db
-                // dataSnapshot stores the ChatMessage
                 Log.d(TAG, "onChildAdded: " + s);
                 Review review = dataSnapshot.getValue(Review.class);
-                // add it to our list and notify our adapter
-//                chatMessageList.add(chatMessage);
-//                arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
